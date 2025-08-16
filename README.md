@@ -30,7 +30,7 @@ quadlet files in to systemd services unit files.
 
 For details about systemd generators, see the man page [systemd.generator](https://www.freedesktop.org/software/systemd/man/latest/systemd.generator.html).
 
-## Converting quadlet files into systemd system unit files
+## Converting quadlet files into systemd system service unit files
 
 The program `podman-system-generator` converts quadlet files in to systemd system services.
 
