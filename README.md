@@ -26,7 +26,7 @@ One _compose_ file is typically converted into multiple quadlet files.
 # Converting quadlet files into systemd system service unit files
 
 `podman-system-generator` and `podman-user-generator` are systemd generators that convert
-quadlet files in to systemd services unit files.
+quadlet files into systemd system services unit files.
 
 For details about systemd generators, see the man page [systemd.generator](https://www.freedesktop.org/software/systemd/man/latest/systemd.generator.html).
 
@@ -51,7 +51,7 @@ Note, files under `/run/` are deleted when the system is rebooted.
 
 ## Converting quadlet files into systemd user service unit files
 
-The program `podman-user-generator` converts quadlet files in to systemd system services.
+The program `podman-user-generator` converts quadlet files into systemd user services unit files.
 
 To create _systemd user services_, do following steps
 
