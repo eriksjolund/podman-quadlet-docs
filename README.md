@@ -64,7 +64,7 @@ To create _systemd user services_, do following steps
    ```
    systemctl --user daemon-reload
    ```
-   The systemd system manager now executes programs in the directory
+   The systemd user manager now executes programs in the directory
    `/usr/lib/systemd/user-generators/`. The program
    `/usr/lib/systemd/user-generators/podman-user-generator` converts
    quadlet files into systemd user service units. The generated files
