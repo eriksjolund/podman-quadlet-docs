@@ -113,7 +113,6 @@ The directive `Pod=` can be specified under the `[Container]` section in a quadl
 
 It's not possible to map UID/GID individually on each contianer when using a Pod.
 
-
 ## `Notify=`
 
 Use `Notify=true` if the container image has support for [_sd_notify_](https://www.freedesktop.org/software/systemd/man/latest/sd_notify.html#).
@@ -299,7 +298,7 @@ Requirements: [systemd 258](https://github.com/systemd/systemd/releases/tag/v258
    Sep 21 15:57:22 localhost.localdomain democontainer[11405]: total 4
    Sep 21 15:57:22 localhost.localdomain democontainer[11405]: -r--------    1 root     root             8 Sep 21 15:57 foo
    Sep 21 15:57:22 localhost.localdomain democontainer[11405]: mysecret
-   ```e
+   ```
    __result:__ the secret text `mysecret` is printed by the container
 
 </details>
@@ -309,9 +308,9 @@ Side note:
 of `SetCredentialEncrypted=`. The encrypted secret is then loaded from a file. Unfortunately, `LoadCredentialEncrypted=` only works in a container unit
 if SELinux is disabled in the container. In other words, `LoadCredentialEncrypted=` needs to be combined with `SecurityLabelDisable=true`.
 
-# Controlling quadlets of another user account
+## Managing quadlets of another user account
 
-To control quadlet services of another user, use for example `sudo systemctl --machine otheruser@ --user daemon-reload`
+To manage quadlet services of another user, use for example `sudo systemctl --machine otheruser@ --user daemon-reload`
 This even works when the other user has `/sbin/nologin` as login shell.
 
 #### example: Create and start a container unit in another user account
