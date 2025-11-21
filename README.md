@@ -95,8 +95,6 @@ It is possible to mix systemd directives and quadlet directives.
 
 The directive `Network=` can be specified under the `[Container]` section in a quadlet container unit (file path suffix _.container_)
 
-See.
-
 ## `NetworkName=`
 
 The directive `NetworkName=` can be specified under the `[Network]` section in a quadlet network unit (file path suffix _.network_)
@@ -124,6 +122,9 @@ The command `systemctl start demo.service` then returns.
 The container unit is configured with `Notify=true`.
 Use the systemd tool [`systemd-notify`](https://www.freedesktop.org/software/systemd/man/latest/systemd-notify.html) to send a ready notification to the service manager.
 
+Requirements: [systemd 258](https://github.com/systemd/systemd/releases/tag/v254)
+or later (to be be able to use the systemd-notify option `--exec`)
+
 <details>
   <summary>Click me</summary>
 
@@ -136,13 +137,42 @@ Use the systemd tool [`systemd-notify`](https://www.freedesktop.org/software/sys
    ```
    FROM docker.io/library/fedora
    RUN dnf -y install systemd
+
+   COPY --chmod=755 <<EOF /test.bash
+   #!/bin/bash
+   echo sleep 5
+   sleep 5
+   exec systemd-notify --exec "READY=1" \; sleep inf
+   EOF
+
+   CMD ["/test.bash"]
    ```
+   Sidenote: Regarding the syntax `COPY --chmod=755 <<EOF`,
+   see [_Introduction to heredocs in Dockerfiles_](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/).
 4. Build container image
    ```
-   podman build -t demo src/
+   podman build -t systemd src/
    ```
-
-TODO: write the missing steps ....
+5. Create directory
+   ```
+   mkdir -p ~/.config/containers/systemd
+   ```
+6. Create file `~/.config/containers/systemd/demo.container` containing
+   ```
+   [Container]
+   Image=localhost/systemd
+   Notify=true
+   ```
+7. Reload the system user manager
+   ```
+   systemctl --user daemon-reload
+   ```
+8. Start the service
+   ```
+   systemctl --user start demo.service
+   ```
+   __result:__ The command finishes after about 5 seconds. This matches the number of
+   seconds slept in the Bash script `/test.bash`.
 
 </details>
 
@@ -203,6 +233,7 @@ To bind-mount the secret directory into the container, use
 `Volume=%d:/secretdir`
 
 The systemd specifier `%d` is resolved to the directory where systemd has placed the plaintext secret.
+For details about systemd specifiers, see the [`systemd.unit(5)`](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#Specifiers) man page.
 
 Typically, the following container unit configuration is needed
 
@@ -230,8 +261,10 @@ echo -n mysecret | systemd-creds --user encrypt -p --name=foo -
 For details, see [`SetCredentialEncrypted=`](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html#SetCredentialEncrypted=)
 and https://systemd.io/CREDENTIALS/
 
-#### example: use `systemd-creds` to create an encrypted secret and
-then use `SetCredentialEncrypted=` to read the secret in a container
+#### example: use `SetCredentialEncrypted=` in a container unit
+
+Use `systemd-creds` and `SetCredentialEncrypted=` to give
+a container read access to a secret.
 
 <details>
   <summary>Click me</summary>
