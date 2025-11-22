@@ -283,7 +283,7 @@ Requirements: [systemd 258](https://github.com/systemd/systemd/releases/tag/v258
 4. Create file `~/.config/containers/systemd/demo.container` containing
    ```
    [Container]
-   ContainerName=democontainer
+   ContainerName=demo
    Image=docker.io/library/alpine:latest
    Exec=sh -c "ls -l /secretdir ; cat /secretdir/foo"
    Volume=%d:/secretdir
@@ -299,7 +299,7 @@ Requirements: [systemd 258](https://github.com/systemd/systemd/releases/tag/v258
    contains
    ```
    [Container]
-   ContainerName=democontainer
+   ContainerName=demo
    Image=docker.io/library/alpine:latest
    Exec=sh -c "ls -l /secretdir ; cat /secretdir/foo"
    Volume=%d:/secretdir
@@ -328,9 +328,9 @@ Requirements: [systemd 258](https://github.com/systemd/systemd/releases/tag/v258
    ```
    The following output is printed
    ```
-   Sep 21 15:57:22 localhost.localdomain democontainer[11405]: total 4
-   Sep 21 15:57:22 localhost.localdomain democontainer[11405]: -r--------    1 root     root             8 Sep 21 15:57 foo
-   Sep 21 15:57:22 localhost.localdomain democontainer[11405]: mysecret
+   Sep 21 15:57:22 localhost.localdomain demo[11405]: total 4
+   Sep 21 15:57:22 localhost.localdomain demo[11405]: -r--------    1 root     root             8 Sep 21 15:57 foo
+   Sep 21 15:57:22 localhost.localdomain demo[11405]: mysecret
    ```
    __result:__ the secret text `mysecret` is printed by the container
 
