@@ -31,9 +31,9 @@ For details about systemd generators, see the man page [systemd.generator](https
 
 ## Converting quadlet files into systemd system service unit files
 
-The program `podman-system-generator` converts quadlet files in to systemd system services.
+The program `podman-system-generator` converts quadlet files into systemd system services.
 
-To create _systemd system services_, do following steps
+To create _systemd system services_, do the following steps
 
 1. Save your quadlet files in the directory `/etc/containers/systemd`
 2. Reload the systemd system manager
@@ -52,7 +52,7 @@ Note, files under `/run/` are deleted when the system is rebooted.
 
 The program `podman-user-generator` converts quadlet files into systemd user services unit files.
 
-To create _systemd user services_, do following steps
+To create _systemd user services_, do the following steps
 
 1. Create directory
    ```
@@ -69,7 +69,7 @@ To create _systemd user services_, do following steps
    quadlet files into systemd user service units. The generated files
    are written to the directory `/run/user/${uid}/systemd/generator`
    where $uid is the UID of the user (that is `uid=$(id -u)`).
-   The path can also written as `${XDG_RUNTIME_DIR}/systemd/generator`.
+   The path can also be written as `${XDG_RUNTIME_DIR}/systemd/generator`.
 
 Note, files under `/run/` are deleted when the system is rebooted.
 
@@ -109,7 +109,7 @@ The default network name given by Podman is `network-$filename`
 
 The directive `Pod=` can be specified under the `[Container]` section in a quadlet container unit (file path suffix _.container_)
 
-It's not possible to map UID/GID individually on each contianer when using a Pod.
+It's not possible to map UID/GID individually on each container when using a Pod.
 
 ## `Notify=`
 
@@ -122,7 +122,7 @@ The command `systemctl start demo.service` then returns.
 The container unit is configured with `Notify=true`.
 Use the systemd tool [`systemd-notify`](https://www.freedesktop.org/software/systemd/man/latest/systemd-notify.html) to send a ready notification to the service manager.
 
-Requirements: [systemd 258](https://github.com/systemd/systemd/releases/tag/v254)
+Requirements: [systemd 254](https://github.com/systemd/systemd/releases/tag/v254)
 or later (to be be able to use the systemd-notify option `--exec`)
 
 <details>
