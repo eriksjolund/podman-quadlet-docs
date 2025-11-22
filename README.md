@@ -277,7 +277,7 @@ Requirements: [systemd 258](https://github.com/systemd/systemd/releases/tag/v258
 
 1. Create a test user
    ```
-   sudo useradd test
+   sudo useradd --create-home test
    ```
 2. Start a login shell
    ```
